@@ -35,7 +35,7 @@ class ChromeDriver extends RemoteWebDriver
         if ($service === null) {
             $service = ChromeDriverService::createDefaultService();
         }
-        $executor = new DriverCommandExecutor($service);
+        $executor = new ChromeDriverCommandExecutor($service);
         $driver = new static($executor, null, $desired_capabilities);
         $driver->startSession($desired_capabilities);
 
@@ -97,5 +97,37 @@ class ChromeDriver extends RemoteWebDriver
         $request_timeout_in_ms = null
     ) {
         throw new WebDriverException('Please use ChromeDriver::start() instead.');
+    }
+
+    /**
+     * Executes a Chrome DevTools command
+     *
+     * @param string $command The DevTools command to execute
+     * @param array $parameters Optional parameters to the command
+     * @return void
+     */
+    public function sendCommand($command, array $parameters = [])
+    {
+        $params = ['cmd' => $command, 'params' => $parameters];
+        $this->execute(
+            ChromeDriverCommand::SEND_COMMAND,
+            $params
+        );
+    }
+
+    /**
+     * Executes a Chrome DevTools command and returns the result
+     *
+     * @param string $command The DevTools command to execute
+     * @param array $parameters Optional parameters to the command
+     * @return array The result of the command
+     */
+    public function sendCommandAndGetResult($command, array $parameters = [])
+    {
+        $params = ['cmd' => $command, 'params' => $parameters];
+        return $this->execute(
+            ChromeDriverCommand::SEND_COMMAND_AND_GET_RESULT,
+            $params
+        );
     }
 }
