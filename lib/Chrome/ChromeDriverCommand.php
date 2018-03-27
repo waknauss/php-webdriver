@@ -1,4 +1,5 @@
 <?php
+
 namespace Facebook\WebDriver\Chrome;
 
 class ChromeDriverCommand

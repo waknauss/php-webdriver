@@ -19,7 +19,6 @@ use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
 use Facebook\WebDriver\Remote\WebDriverCommand;
 
 class ChromeDriver extends RemoteWebDriver
@@ -104,7 +103,6 @@ class ChromeDriver extends RemoteWebDriver
      *
      * @param string $command The DevTools command to execute
      * @param array $parameters Optional parameters to the command
-     * @return void
      */
     public function sendCommand($command, array $parameters = [])
     {
@@ -125,6 +123,7 @@ class ChromeDriver extends RemoteWebDriver
     public function sendCommandAndGetResult($command, array $parameters = [])
     {
         $params = ['cmd' => $command, 'params' => $parameters];
+
         return $this->execute(
             ChromeDriverCommand::SEND_COMMAND_AND_GET_RESULT,
             $params
