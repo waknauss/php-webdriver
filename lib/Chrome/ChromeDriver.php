@@ -106,7 +106,7 @@ class ChromeDriver extends RemoteWebDriver
      */
     public function sendCommand($command, array $parameters = [])
     {
-        $params = ['cmd' => $command, 'params' => $parameters];
+        $params = ['cmd' => $command, 'params' => (object) $parameters];
         $this->execute(
             ChromeDriverCommand::SEND_COMMAND,
             $params
@@ -122,7 +122,7 @@ class ChromeDriver extends RemoteWebDriver
      */
     public function sendCommandAndGetResult($command, array $parameters = [])
     {
-        $params = ['cmd' => $command, 'params' => $parameters];
+        $params = ['cmd' => $command, 'params' => (object) $parameters];
 
         return $this->execute(
             ChromeDriverCommand::SEND_COMMAND_AND_GET_RESULT,
